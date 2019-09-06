@@ -2,13 +2,14 @@
 #include "ui_mainwindow.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include "chartmenu.h"
+
 #include <QListWidget>
 #include "chartlefttree.h"
 #include "chartshow.h"
 #include <QSplitter>
 #include "chartbottom.h"
 #include "chartright.h"
+#include <QSizePolicy>
 
 
 #include <QDebug>
@@ -20,8 +21,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     QVBoxLayout *fullLayout = new QVBoxLayout;
+
     // 标题部分
     ChartMenu *menu = new ChartMenu;
+    this->menu = menu;
+    QSizePolicy *p = new QSizePolicy;
+    p->setVerticalPolicy(QSizePolicy::Expanding);
+    menu->setSizePolicy(*p);
 
 
     // 坐标部分
@@ -47,23 +53,26 @@ MainWindow::MainWindow(QWidget *parent) :
     fullLayout->addWidget(menu);
     fullLayout->addWidget(mainSplitter);
     fullLayout->addWidget(bottom);
-    bool isStretch = fullLayout->setStretchFactor(menu,1);
+    fullLayout->setStretchFactor(menu,1);
     fullLayout->setStretchFactor(mainSplitter,9);
     fullLayout->setStretchFactor(bottom,1);
-
-
 
     ui->centralWidget->setLayout(fullLayout);
 
     qDebug() << menu->height();
     qDebug() << mainSplitter->height();
     qDebug() << bottom->height();
-    qDebug() << fullLayout->spacing();
-    qDebug() << isStretch;
+    qDebug() << chartLeftTree->width();
+    qDebug() << chartShow->width();
+    qDebug() << chartRight->width();
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event){
+    qDebug() << this->menu->height();
 }
