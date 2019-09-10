@@ -4,20 +4,19 @@
 #include <QLabel>
 #include <QDebug>
 
+#define ICON_SIDE_LENGTH 45
+
 ChartMenu::ChartMenu(QWidget *parent) : QWidget(parent)
 {
 
     QHBoxLayout *layout = new QHBoxLayout;
 
     QLabel *label = new QLabel;
-    int w = label-> width();
-    int h = label-> height();
 
-    QPixmap *pixmap = new QPixmap(":/images/pic/chart.png");
-    pixmap->scaled(h,h,Qt::KeepAspectRatio);
-    label->setPixmap(*pixmap);
+    QPixmap pixmap(":/images/pic/chart.png");
+    QPixmap pixmap1 = pixmap.scaled(ICON_SIDE_LENGTH,ICON_SIDE_LENGTH,Qt::IgnoreAspectRatio);
+    label->setPixmap(pixmap1);
 
-    label->setText("图表系统");
     layout->addWidget(label);
 
     this->setLayout(layout);

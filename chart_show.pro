@@ -6,7 +6,7 @@
 
 QT       += core gui charts
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts
 
 TARGET = chart_show
 TEMPLATE = app
@@ -41,6 +41,7 @@ HEADERS += \
         chartmenu.h \
         chartright.h \
         chartshow.h \
+        common.h \
         mainwindow.h
 
 FORMS += \

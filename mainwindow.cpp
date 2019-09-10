@@ -9,7 +9,7 @@
 #include <QSplitter>
 #include "chartbottom.h"
 #include "chartright.h"
-#include <QSizePolicy>
+#include <QScrollArea>
 
 
 #include <QDebug>
@@ -25,10 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // 标题部分
     ChartMenu *menu = new ChartMenu;
     this->menu = menu;
-    QSizePolicy *p = new QSizePolicy;
-    p->setVerticalPolicy(QSizePolicy::Expanding);
-    menu->setSizePolicy(*p);
-
 
     // 坐标部分
     QSplitter *mainSplitter = new QSplitter;
@@ -36,20 +32,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ChartLeftTree *chartLeftTree = new ChartLeftTree;
     // main
     ChartShow *chartShow = new ChartShow;
+    QScrollArea * mainScrollArea = new QScrollArea;
+    mainScrollArea->setWidgetResizable(true);
+    mainScrollArea->setWidget(chartShow);
     // right
     ChartRight *chartRight = new ChartRight;
+    QScrollArea * chartRightArea = new QScrollArea;
+    chartRightArea->setWidgetResizable(true);
+    chartRightArea->setWidget(chartRight);
 
     mainSplitter->addWidget(chartLeftTree);
-    mainSplitter->addWidget(chartShow);
-    mainSplitter->addWidget(chartRight);
-    mainSplitter->setStretchFactor(0,3);
-    mainSplitter->setStretchFactor(1,7);
-    mainSplitter->setStretchFactor(2,2);
+    mainSplitter->addWidget(mainScrollArea);
+    mainSplitter->addWidget(chartRightArea);
+
+    mainSplitter->setStretchFactor(0,1);
+    mainSplitter->setStretchFactor(1,9);
+    mainSplitter->setStretchFactor(2,1);
+
 
     // bottom
     ChartBottom *bottom = new ChartBottom;
 
-    fullLayout->setSpacing(1);
     fullLayout->addWidget(menu);
     fullLayout->addWidget(mainSplitter);
     fullLayout->addWidget(bottom);
@@ -58,14 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fullLayout->setStretchFactor(bottom,1);
 
     ui->centralWidget->setLayout(fullLayout);
-
-    qDebug() << menu->height();
-    qDebug() << mainSplitter->height();
-    qDebug() << bottom->height();
-    qDebug() << chartLeftTree->width();
-    qDebug() << chartShow->width();
-    qDebug() << chartRight->width();
-
+    this->setBaseSize(800,600);
 }
 
 MainWindow::~MainWindow()
@@ -74,5 +70,5 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event){
-    qDebug() << this->menu->height();
+    //qDebug() << this->menu->height();
 }
