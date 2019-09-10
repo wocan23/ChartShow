@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QStringList>
 #include <QtCharts>
+#include <QList>
 using namespace::QtCharts;
 
 
@@ -16,7 +17,7 @@ class ChartShow : public QWidget
 public:
     explicit ChartShow(QWidget *parent = nullptr);
 
-    QChartView* drawBar(QStringList barSet, double**data,QString title, QStringList categorys);
+    QChartView* drawBar(QStringList barSet, QList<QList<double>> data, QString title, QStringList categorys);
 
     void exportImage(QString path,IMAGE_FOMART format,QChartView *chartView );
 

@@ -12,6 +12,7 @@ using namespace::QtCharts;
 #include <QGuiApplication>
 #include <QScreen>
 #include <QPushButton>
+#include <QList>
 
 ChartShow::ChartShow(QWidget *parent) : QWidget(parent)
 {
@@ -24,44 +25,55 @@ ChartShow::ChartShow(QWidget *parent) : QWidget(parent)
     connect(exportBtn,SIGNAL(clicked()),this,SLOT(exportImageSlot()));
 
     vlayout->addWidget(exportBtn);
-    vlayout->addWidget(this->drawBar(list,NULL,NULL,list));
+
+    // 测试图片数据
+    QStringList barSetNames = {"Jane","John","Axel","Mary","Samantha"};
+    QStringList categorys = {"Jan","Feb","Mar","Apr","May","Jun"};
+    QList<QList<double>> datas;
+    for (int i = 0; i < 5; ++i) {
+        QList<double> tList;
+        for (int j = 0; j < 6; j++) {
+            tList.append(j - i + 10);
+        }
+        datas.append(tList);
+    }
+    // 测试图片数据
+
+    vlayout->addWidget(this->drawBar(barSetNames,datas,"bar chart",categorys));
     this->setLayout(vlayout);
 }
 
-QChartView* ChartShow:: drawBar(QStringList barSet, double**data,QString title, QStringList categorys){
-    QBarSet *set0 = new QBarSet("Jane");
-    QBarSet *set1 = new QBarSet("John");
-    QBarSet *set2 = new QBarSet("Axel");
-    QBarSet *set3 = new QBarSet("Mary");
-    QBarSet *set4 = new QBarSet("Samantha");
-
-    *set0 << 1 << 2 << 3 << 4 << 5 << 6;
-    *set1 << 5 << 0 << 0 << 4 << 0 << 7;
-    *set2 << 3 << 5 << 8 << 13 << 8 << 5;
-    *set3 << 5 << 6 << 7 << 3 << 4 << 5;
-    *set4 << 9 << 7 << 5 << 3 << 1 << 2;
+QChartView* ChartShow:: drawBar(QStringList barSetNames, QList<QList<double>> data,QString title, QStringList categorys){
+    double maxValue = 0;
+    int barSetsize = barSetNames.size();
+    int categorySize = categorys.size();
+    QBarSet **barSets = new QBarSet*[barSetsize];
+    for (int i = 0; i < barSetsize; ++i) {
+        QBarSet *barSet = new QBarSet(barSetNames[i]);
+        barSets[i] = barSet;
+        for (int j = 0; j < categorySize; ++j) {
+            *barSet<<data[i][j];
+        }
+    }
 
     QBarSeries *series = new QBarSeries();
-    series->append(set0);
-    series->append(set1);
-    series->append(set2);
-    series->append(set3);
-    series->append(set4);
+    for (int i = 0; i < barSetsize; i++) {
+         series->append(barSets[i]);
+    }
 
     QChart *chart = new QChart();
     chart->addSeries(series);
-    chart->setTitle("Simple barchart example");
+    chart->setTitle(title);
     chart->setAnimationOptions(QChart::SeriesAnimations);
 
-    QStringList categories;
-    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun";
+
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
+    axisX->append(categorys);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,15);
+    axisY->setRange(0,maxValue*1.2);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 

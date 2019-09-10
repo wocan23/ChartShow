@@ -1,15 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QVBoxLayout>
-#include <QHBoxLayout>
+#include <QSplitter>
+#include <QScrollArea>
+#include "chartright.h"
+#include "chartbottom.h"
 
 #include <QListWidget>
 #include "chartlefttree.h"
 #include "chartshow.h"
-#include <QSplitter>
-#include "chartbottom.h"
-#include "chartright.h"
-#include <QScrollArea>
 
 
 #include <QDebug>
