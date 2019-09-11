@@ -7,6 +7,7 @@
 #include <QtCharts>
 #include <QList>
 using namespace::QtCharts;
+#include <QChart>
 
 
 enum IMAGE_FOMART{PNG};
@@ -17,7 +18,7 @@ class ChartShow : public QWidget
 public:
     explicit ChartShow(QWidget *parent = nullptr);
 
-    QChartView* drawBar(QStringList barSet, QList<QList<double>> data, QString title, QStringList categorys);
+    QChart* drawBar(QStringList barSet, QList<QList<double>> data, QString title, QStringList categorys);
 
     void exportImage(QString path,IMAGE_FOMART format,QChartView *chartView );
 
@@ -25,8 +26,11 @@ signals:
 
 public slots:
     void exportImageSlot();
+    void reDraw();
+    void draw();
 private:
     QChartView * chartView;
+    QChart *chart;
 };
 
 #endif // CHARTSHOW_H
