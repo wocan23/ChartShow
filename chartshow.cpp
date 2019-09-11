@@ -20,11 +20,7 @@ ChartShow::ChartShow(QWidget *parent) : QWidget(parent)
     QVBoxLayout *vlayout = new QVBoxLayout;
     QStringList list;
 
-    QPushButton *exportBtn = new QPushButton;
-    exportBtn->setText("导出png");
-    connect(exportBtn,SIGNAL(clicked()),this,SLOT(exportImageSlot()));
 
-    vlayout->addWidget(exportBtn);
 
     // 测试图片数据
     QStringList barSetNames = {"Jane","John","Axel","Mary","Samantha"};
@@ -40,6 +36,12 @@ ChartShow::ChartShow(QWidget *parent) : QWidget(parent)
     // 测试图片数据
 
     vlayout->addWidget(this->drawBar(barSetNames,datas,"bar chart",categorys));
+
+    QPushButton *exportBtn = new QPushButton;
+    exportBtn->setText("导出png");
+    connect(exportBtn,SIGNAL(clicked()),this,SLOT(exportImageSlot()));
+
+    vlayout->addWidget(exportBtn);
     this->setLayout(vlayout);
 }
 

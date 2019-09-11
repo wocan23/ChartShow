@@ -27,6 +27,7 @@ CONFIG += c++11
 SOURCES += \
         chartbottom.cpp \
         chartcreator.cpp \
+        chartdata.cpp \
         chartlefttree.cpp \
         chartmenu.cpp \
         chartright.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
 HEADERS += \
         chartbottom.h \
         chartcreator.h \
+        chartdata.h \
         chartlefttree.h \
         chartmenu.h \
         chartright.h \
