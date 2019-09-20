@@ -28,6 +28,7 @@ SOURCES += \
         chartbottom.cpp \
         chartcreator.cpp \
         chartdata.cpp \
+        charthtextdocument.cpp \
         chartlefttree.cpp \
         chartmenu.cpp \
         chartright.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
         chartbottom.h \
         chartcreator.h \
         chartdata.h \
+        charthtextdocument.h \
         chartlefttree.h \
         chartmenu.h \
         chartright.h \
