@@ -13,6 +13,7 @@ using namespace::QtCharts;
 #include <QScreen>
 #include <QPushButton>
 #include <QList>
+#include <QFileDialog>
 
 ChartShow::ChartShow(QWidget *parent) : QWidget(parent)
 {
@@ -77,11 +78,12 @@ QChart* ChartShow:: drawBar(QStringList barSetNames, QList<QList<double>> data,Q
 void ChartShow::exportImage(QString path,IMAGE_FOMART format,QChartView *charView ){
     QPixmap p = charView->grab();
     QImage image = p.toImage();
-    image.save("/Users/zhaoshuai/Documents/chart1.png");
+    image.save(path+"/chart.png");
 }
 
 void ChartShow::exportImageSlot(){
-    exportImage("",PNG,this->chartView);
+    QString dirName = QFileDialog::getExistingDirectory(NULL,"caption",".");
+    exportImage(dirName,PNG,this->chartView);
 }
 
 void ChartShow::reDraw(){

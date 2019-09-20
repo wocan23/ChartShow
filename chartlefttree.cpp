@@ -5,6 +5,7 @@
 #include "common.h"
 
 
+
 ChartLeftTree::ChartLeftTree(QTreeWidget *parent) : QTreeWidget(parent)
 {
      QStringList chartNames = { "bar","pie","line" };

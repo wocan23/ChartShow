@@ -44,9 +44,9 @@ MainWindow::MainWindow(QWidget *parent) :
     mainSplitter->addWidget(mainScrollArea);
     mainSplitter->addWidget(chartRightArea);
 
-    mainSplitter->setStretchFactor(0,1);
+    mainSplitter->setStretchFactor(0,3);
     mainSplitter->setStretchFactor(1,9);
-    mainSplitter->setStretchFactor(2,1);
+    mainSplitter->setStretchFactor(2,3);
 
 
     // bottom
