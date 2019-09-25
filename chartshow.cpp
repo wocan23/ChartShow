@@ -14,6 +14,16 @@ using namespace::QtCharts;
 #include <QPushButton>
 #include <QList>
 #include <QFileDialog>
+#include "sqlitedboperator.h"
+#include <QDebug>
+#include <QSqlQuery>
+
+QList<QString>fullFuncList(QSqlQuery* queryP){
+       QList<QString> list;
+       list.append("a");
+       queryP->isValid();
+       return list;
+};
 
 ChartShow::ChartShow(QWidget *parent) : QWidget(parent)
 {
@@ -38,7 +48,6 @@ ChartShow::ChartShow(QWidget *parent) : QWidget(parent)
 }
 
 QChart* ChartShow:: drawBar(QStringList barSetNames, QList<QList<double>> data,QString title, QStringList categorys){
-    double maxValue = 0;
     int barSetsize = barSetNames.size();
     int categorySize = categorys.size();
     QBarSet **barSets = new QBarSet*[barSetsize];
