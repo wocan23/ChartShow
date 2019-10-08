@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui charts sql
+QT       += core gui charts network sql
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = chart_show
 TEMPLATE = app
@@ -33,6 +33,7 @@ SOURCES += \
         chartmenu.cpp \
         chartright.cpp \
         chartshow.cpp \
+        httputil.cpp \
         main.cpp \
         mainwindow.cpp
 
@@ -46,6 +47,7 @@ HEADERS += \
         chartright.h \
         chartshow.h \
         common.h \
+        httputil.h \
         mainwindow.h \
         sqlitedboperator.h
 

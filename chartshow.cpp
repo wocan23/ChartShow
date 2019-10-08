@@ -17,6 +17,7 @@ using namespace::QtCharts;
 #include "sqlitedboperator.h"
 #include <QDebug>
 #include <QSqlQuery>
+#include <httputil.h>
 
 QList<QString>fullFuncList(QSqlQuery* queryP){
        QList<QString> list;
@@ -84,11 +85,23 @@ QChart* ChartShow:: drawBar(QStringList barSetNames, QList<QList<double>> data,Q
 
 }
 
-void ChartShow::exportImage(QString path,IMAGE_FOMART format,QChartView *charView ){
-    QPixmap p = charView->grab();
-    QImage image = p.toImage();
-    image.save(path+"/chart.png");
+
+
+void uploadFile(QString filePath){
+
+    HttpUtil * util = HttpUtil::getInstance();
+    util->upload("http://localhost:9999/file/upload","/Users/zhaoshuai/Desktop/a.png");
+
 }
+void ChartShow::exportImage(QString path,IMAGE_FOMART format,QChartView *charView ){
+//    QPixmap p = charView->grab();
+//    QImage image = p.toImage();
+//    image.save(path+"/chart.png");
+
+    uploadFile(path+"/chart.png");
+}
+
+
 
 void ChartShow::exportImageSlot(){
     QString dirName = QFileDialog::getExistingDirectory(NULL,"caption",".");
@@ -125,5 +138,6 @@ void ChartShow::draw(){
     }
     this->chart = drawBar(barSetNames,datas,"title",categorys);
     this->chartView->setChart(this->chart);
+
 }
 
